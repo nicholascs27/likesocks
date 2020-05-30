@@ -12,6 +12,7 @@
 /tmp/*
 !/log/.keep
 !/tmp/.keep
+/.byebug_history
 
 # Ignore uploaded files in development
 /storage/*
