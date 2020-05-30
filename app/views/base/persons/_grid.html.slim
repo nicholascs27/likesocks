@@ -1,0 +1,43 @@
+hr
+.widget
+  - if notice
+    .alert.alert-success.alert-dismissable
+      button type="button" class="close" data-dismiss="alert" aria-hidden="true" x
+      = notice
+  header
+    h4
+      ' Lista de
+      span.fw-semi-bold Pessoas
+      .pull-right style="margin-top: -5px;"
+        = link_to new_base_person_path, class: "btn btn-success btn-circle" do
+          i class="fa fa-plus"
+
+  .widget-body
+    .table-responsive
+      table.table.table-hover
+        thead
+          tr
+            th #
+            th Nome
+            th Endereço
+            th Telefone
+            th width="130px"
+
+        tbody
+          - @persons.each do |person|
+            tr
+              td
+                = person.id
+              td
+                = person.nome
+              td
+                = person.endereco_completo
+              td
+                = person.telefone.try(:as_telefone)
+              td
+                = link_to person, class: "btn btn-info btn-circle" do
+                  i class="fa fa-search"
+                = link_to edit_base_person_path(person), class: "btn btn-primary btn-circle" do
+                  i class="fa fa-edit"
+                = link_to person, method: :delete, data: { confirm: 'Tem certeza?' }, class: "btn btn-danger btn-circle" do
+                  i class="fa fa-times"

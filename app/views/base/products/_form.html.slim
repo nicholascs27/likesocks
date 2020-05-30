@@ -1,0 +1,69 @@
+- action = (@product.new_record? ? :create : :update)
+
+= form_for( @product, url: url_for(controller: 'base/products', action: action), role: "form" ) do |f|
+  br
+	fieldset
+		legend
+			strong
+				= @product.new_record?  ? 'Cadastrar' : 'Editar'
+				'  Produto
+
+		.form-group
+			.row
+				.col-sm-8
+					= f.label :descricao, "Descrição*", class: "control-label"
+					= f.text_field :descricao, class: "form-control"
+					= error_for @product, :descricao
+
+				.col-sm-4
+					= f.label :product_model_id, "Modelo*", class: "control-label"
+					= f.select :product_model_id,
+						options_from_collection_for_select( \
+							@modelos || [], :id, :descricao,
+							@product.try(:product_model_id) \
+						),
+						{ include_blank: "Selecione" },
+						class: "form-control s2",
+						data: { value: @product.try(:product_model_id) },
+						id: "product_model_id"
+					= error_for @product, :product_model_id
+		.form-group
+			.row
+				.col-sm-2
+					= f.label :quantidade_estoque, "Qtd. Estoque*", class: "control-label"
+					= f.number_field :quantidade_estoque, class: "form-control"
+					= error_for @product, :quantidade_estoque
+
+				.col-sm-3
+					= f.label :preco, "Preço*", class: "control-label"
+					= f.text_field :preco, placeholder: 'R$ 0,00', class: 'form-control', data: {autonumeric: true, 'a-sep'=> '.', 'a-dec'=>',', 'a-sign'=> 'R$ '}
+					= error_for @product, :preco
+
+		.form-group
+			.row
+				.col-sm-12
+					= f.label :imagem, "Anexo:", class: "control-label"
+					br
+					- if @product.imagem.present?
+						= image_tag(@product.imagem.url(:medium), class: "img-thumbnail")
+					= f.file_field :imagem, value: @product.imagem, class: "btn btn-default"
+					= error_for @product, :imagem
+
+	.form-actions
+		.row
+			.col-sm-12
+        = f.submit "Salvar", class: "btn btn-primary"
+        = link_to "Voltar", base_products_path, class: "btn btn-default"
+
+javascript:
+	$(function() {
+		$(document).trigger('refresh_autonumeric');
+		$('#base_product_preco').autoNumeric('init', {
+			'aSep': '.',
+			'aDec': ',',
+			'aPad': true,
+			'vMin': 0.00,
+			'aSign': 'R$ '
+		});
+	});
+

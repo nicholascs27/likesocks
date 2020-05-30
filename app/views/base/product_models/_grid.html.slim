@@ -1,0 +1,35 @@
+hr
+.widget
+  / - if notice
+  /   .alert.alert-success.alert-dismissable
+  /     button type="button" class="close" data-dismiss="alert" aria-hidden="true" x
+  /     = notice
+  header
+    h4
+      ' Lista de
+      span.fw-semi-bold Modelos de Pessoas
+      .pull-right style="margin-top: -5px;"
+        = link_to new_base_product_model_path, class: "btn btn-success btn-circle" do
+          i class="fa fa-plus"
+
+  .widget-body
+    .table-responsive
+      table.table.table-hover
+        thead
+          tr
+            th #
+            th Descrição
+            th width="100px"
+
+        tbody
+          - @product_models.each do |product_model|
+            tr
+              td
+                = product_model.id
+              td
+                = product_model.descricao
+              td
+                = link_to edit_base_product_model_path(product_model), class: "btn btn-primary btn-circle" do
+                  i class="fa fa-edit"
+                = link_to product_model, method: :delete, data: { confirm: 'Tem certeza?' }, class: "btn btn-danger btn-circle" do
+                  i class="fa fa-times"

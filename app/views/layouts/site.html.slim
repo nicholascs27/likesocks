@@ -1,0 +1,32 @@
+doctype html
+html
+	head
+		title Like Socks
+		= csrf_meta_tags
+		= csp_meta_tag
+
+		= stylesheet_link_tag 'application', media: 'all'
+		= stylesheet_link_tag 'site', media: 'all'
+
+	body
+		== render partial: 'layouts/site_shared/navigation'
+		= yield
+		= javascript_include_tag 'application'
+		= javascript_include_tag 'site'
+		= yield :js
+		- if notice
+			javascript:
+				Messenger.options = { extraClasses: 'messenger-fixed messenger-on-top messenger-on-right alert', theme: 'flat' };
+				Messenger().post("#{notice}");
+		- elsif alert
+			javascript:
+				Messenger.options = { extraClasses: 'messenger-fixed messenger-on-top messenger-on-right alert', theme: 'flat' };
+				Messenger().post({message: "#{alert}", type: 'error'});
+		- elsif info
+			javascript:
+				Messenger.options = { extraClasses: 'messenger-fixed messenger-on-top messenger-on-right alert', theme: 'flat' };
+				Messenger().post({message: "#{info}", type: 'info'});
+		- elsif success
+			javascript:
+				Messenger.options = { extraClasses: 'messenger-fixed messenger-on-top messenger-on-right alert', theme: 'flat' };
+				Messenger().post({message: "#{success}", type: 'success'});

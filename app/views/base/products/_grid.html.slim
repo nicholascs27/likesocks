@@ -1,0 +1,49 @@
+hr
+.widget
+  - if notice
+    .alert.alert-success.alert-dismissable
+      button type="button" class="close" data-dismiss="alert" aria-hidden="true" x
+      = notice
+  header
+    h4
+      ' Lista de
+      span.fw-semi-bold Produtos
+      .pull-right style="margin-top: -5px;"
+        = link_to new_base_product_path, class: "btn btn-success btn-circle" do
+          i class="fa fa-plus"
+
+  .widget-body
+    .table-responsive
+      table.table.table-hover
+        thead
+          tr
+            th #
+            th Imagem
+            th Descrição
+            th Modelo
+            th Qtd. Estoque
+            th Preço
+            th width="130px"
+
+        tbody
+          - @products.each do |product|
+            tr
+              td
+                = product.id
+              td
+                = image_tag(product.imagem.url(:thumb), class: "img-thumbnail")
+              td
+                = product.descricao
+              td
+                = product.product_model.descricao
+              td
+                = product.quantidade_estoque
+              td
+                = product.preco.valor_financeiro
+              td
+                = link_to product, class: "btn btn-info btn-circle" do
+                  i class="fa fa-search"
+                = link_to edit_base_product_path(product), class: "btn btn-primary btn-circle" do
+                  i class="fa fa-edit"
+                = link_to product, method: :delete, data: { confirm: 'Tem certeza?' }, class: "btn btn-danger btn-circle" do
+                  i class="fa fa-times"

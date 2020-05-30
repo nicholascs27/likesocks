@@ -1,0 +1,24 @@
+
+section.widget.widget-search
+	header
+		h4 Filtros
+
+	.widget-body
+		= search_form_for @q, url: base_persons_path, :html => {class: "form-vertical"} do |f|
+			fieldset
+				.form-group
+					.row
+						.col-sm-5.filter_column
+							label.control-label Nome
+							= f.text_field :nome_cont, class: "form-control"
+
+						.col-sm-2.filter_column
+							label.control-label Cidade
+							= f.text_field :cidade_cont, class: "form-control"
+
+						.col-sm-4.filter_column
+							label.control-label Telefone
+							= f.text_field :telefone_cont, class: "form-control"
+
+			.form-actions.form-search-actions
+				= f.submit "Filtrar", class: "btn btn-default btn-sm"

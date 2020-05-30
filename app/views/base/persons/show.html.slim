@@ -1,0 +1,84 @@
+.div#page-wrapper
+  .container-fluid
+    .row
+      .col-lg-12
+				.widget
+					.widget-body
+						br
+						fieldset
+							legend
+								strong
+									'  Detalhe Pessoa
+
+						hr
+						.row
+							.col-md-6
+								p
+									span.fw-semi-bold Nome:
+									=< @person.nome
+								p
+									span.fw-semi-bold Instagram:
+									=< @person.instagram
+								p
+									span.fw-semi-bold CPF:
+									=< @person.cpf.try(:as_cpf)
+								p
+									span.fw-semi-bold CNPJ:
+									=< @person.cnpj.try(:as_cnpj)
+								p
+									span.fw-semi-bold CEP:
+									=< @person.cep.try(:as_cep)
+								p
+									span.fw-semi-bold Logradouro:
+									=< @person.logradouro
+								p
+									span.fw-semi-bold Nº:
+									=< @person.numero
+								p
+									span.fw-semi-bold Bairro:
+									=< @person.bairro
+								p
+									span.fw-semi-bold Estado:
+									=< @person.estado
+								p
+									span.fw-semi-bold Cidade:
+									=< @person.cidade
+								p
+									span.fw-semi-bold Complemento:
+									=< @person.complemento
+							.col-sm-6
+								p
+									span.fw-semi-bold E-mail:
+									=< @person.email
+								p
+									span.fw-semi-bold Telefone:
+									=< @person.telefone.try(:as_telefone)
+								p
+									span.fw-semi-bold Data de Nascimento:
+									=< @person.data_de_nascimento
+
+						- if @person.observacoes.present?
+							hr
+							.row
+								.col-md-12
+									p
+										span.fw-semi-bold Observações:
+									p
+										=< @person.observacoes
+						br
+
+						.row
+							.col-sm-12
+								.btn-toolbar
+									.btn-group
+										= link_to base_persons_path, class: "btn btn-default btn-sm" do
+											i.fa.fa-arrow-left
+											'  Voltar
+
+										= link_to edit_base_person_path(@person), class: "btn btn-default btn-sm" do
+											i.glyphicon.glyphicon-pencil
+											'  Editar
+
+										= link_to @person, method: :delete, data: { confirm: 'Tem certeza?' }, class: "btn btn-default btn-sm" do
+											i.glyphicon.glyphicon-trash.text-danger
+											span.text-danger  Excluir

@@ -1,0 +1,54 @@
+.div#page-wrapper
+  .container-fluid
+    .row
+      .col-lg-12
+				.widget
+					.widget-body
+						br
+						fieldset
+							legend
+								strong
+									'  Detalhe Produto
+
+						hr
+						.row
+							.col-md-12
+								p
+									span.fw-semi-bold Imagem:
+									br
+									br
+									=< image_tag(@product.imagem.url(:medium), class: "img-thumbnail")
+								br
+								br
+							.col-md-6
+								p
+									span.fw-semi-bold Descrição:
+									=< @product.descricao
+								p
+									span.fw-semi-bold Modelo:
+									=< @product.product_model.descricao
+							.col-sm-6
+								p
+									span.fw-semi-bold Qtd. Estoque:
+									=< @product.quantidade_estoque
+								p
+									span.fw-semi-bold Preço:
+									=< @product.preco.valor_financeiro
+
+						br
+
+						.row
+							.col-sm-12
+								.btn-toolbar
+									.btn-group
+										= link_to base_products_path, class: "btn btn-default btn-sm" do
+											i.fa.fa-arrow-left
+											'  Voltar
+
+										= link_to edit_base_product_path(@product), class: "btn btn-default btn-sm" do
+											i.glyphicon.glyphicon-pencil
+											'  Editar
+
+										= link_to @product, method: :delete, data: { confirm: 'Tem certeza?' }, class: "btn btn-default btn-sm" do
+											i.glyphicon.glyphicon-trash.text-danger
+											span.text-danger  Excluir
