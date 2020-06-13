@@ -22,7 +22,7 @@ gem 'autonumeric-rails'
 gem "paperclip", "~> 6.0.0"
 gem "messengerjs-rails", "~> 1.4.1"
 # jQuery UI for the Rails asset pipeline
-gem 'jquery-ui-rails'
+# gem 'jquery-ui-rails'
 # Use postgresql as the database for Active Record
 gem 'pg', '>= 0.18', '< 2.0'
 # Use Puma as the app server

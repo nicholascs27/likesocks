@@ -1,0 +1,21 @@
+
+section.widget.widget-search
+	header
+		h4 Filtros
+
+	.widget-body
+		= search_form_for @q, url: commercial_orders_path, :html => {class: "form-vertical"} do |f|
+			fieldset
+				.form-group
+					.row
+						.col-sm-3
+							label.control-label Data
+							= f.text_field :data_do_pedido_eq, class: "form-control"
+
+						.col-sm-3
+							label.control-label Código
+							= f.text_field :codigo_eq, class: "form-control"
+
+
+			.form-actions.form-search-actions
+				= f.submit "Filtrar", class: "btn btn-default btn-sm"

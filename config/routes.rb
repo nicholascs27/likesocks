@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  namespace :commercial do
+    resources :orders
+  end
   namespace :base do
     resources :persons
     resources :product_models, expect: [:show]

@@ -1,0 +1,62 @@
+- action = (@order.new_record? ? :create : :update)
+
+= form_for( @order, url: url_for(controller: 'commercial/orders', action: action), role: "form" ) do |f|
+  br
+	fieldset
+		legend
+			strong
+				= @order.new_record?  ? 'Cadastrar' : 'Editar'
+				'  Pedido
+
+		.form-group
+			.row
+				.col-sm-3
+					= f.label :data_do_pedido, "Data do Pedido", class: "control-label", for: "normal-field"
+					.input-group
+						= f.text_field :data_do_pedido, class: "form-control datepicker", id: "data_do_pedido"
+						span.input-group-addon
+							span.glyphicon.glyphicon-calendar
+				.col-sm-4
+					= f.label :people_id, "Cliente*", class: "control-label"
+					= f.select :people_id,
+						options_from_collection_for_select( \
+							@clientes || [], :id, :nome,
+							@order.try(:people_id) \
+						),
+						{ include_blank: "Selecione" },
+						class: "form-control s2",
+						data: { value: @order.try(:people_id) },
+						id: "people_id"
+					= error_for @order, :people_id
+		.form-group
+			.row
+				.col-sm-3
+					= f.label :valor_total, "Valor do Pedido*", class: "control-label"
+					= f.text_field :valor_total, placeholder: 'R$ 0,00', class: 'form-control', data: {autonumeric: true, 'a-sep'=> '.', 'a-dec'=>',', 'a-sign'=> 'R$ '}
+					= error_for @order, :valor_total
+
+	.form-actions
+		.row
+			.col-sm-12
+        = f.submit "Salvar", class: "btn btn-primary"
+        = link_to "Voltar", base_products_path, class: "btn btn-default"
+
+javascript:
+	$(function() {
+		$(document).trigger('refresh_autonumeric');
+		$('#commercial_order_preco').autoNumeric('init', {
+			'aSep': '.',
+			'aDec': ',',
+			'aPad': true,
+			'vMin': 0.00,
+			'aSign': 'R$ '
+		});
+
+		$('.datepicker').datepicker({
+			format: "dd/mm/yyyy",
+			language: 'pt-BR'
+		});
+
+		$("#data_do_pedido").mask("00/00/0000");
+	});
+
