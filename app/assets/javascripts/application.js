@@ -14,8 +14,11 @@
 //= require jquery
 //= require rails-ujs
 //= require jquery-ui
+//= require maskedinput
 //= require jquery.mask
 //= require messenger
 //= require messenger-theme-future
 //= require messenger-theme-flat
+//= require cocoon
+//= require funcoes
 //= require autonumeric1

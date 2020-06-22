@@ -13,14 +13,16 @@ gem "font-awesome-rails"
 gem 'bootstrap_sb_admin_base_v2'
 gem 'jquery-rails', '~> 4.3', '>= 4.3.3'
 gem 'jquery-ui-rails'
-gem 'rails-ujs', '~> 0.1.0'
 gem 'rails-assets-bootstrap', source: 'https://rails-assets.org'
+gem 'slim'
 gem "slim-rails"
 gem 'ransack'
 gem 'jquery_mask_rails', '~> 0.1.0'
 gem 'autonumeric-rails'
 gem "paperclip", "~> 6.0.0"
 gem "messengerjs-rails", "~> 1.4.1"
+gem 'maskedinput-rails'
+gem "cocoon", '1.2.14'
 # jQuery UI for the Rails asset pipeline
 # gem 'jquery-ui-rails'
 # Use postgresql as the database for Active Record

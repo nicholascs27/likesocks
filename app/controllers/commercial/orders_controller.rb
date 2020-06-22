@@ -29,7 +29,7 @@ class Commercial::OrdersController < SiteController
   end
 
   def update
-    if @order.update
+    if @order.update(order_params)
       redirect_to commercial_orders_path, success: 'Pedido atualizado com sucesso.'
     else
       render :new
@@ -48,15 +48,27 @@ class Commercial::OrdersController < SiteController
 
   def disponibiliza_dependencias
     @clientes = Base::Person.all.order(:nome)
+    @products = Base::Product.all.order(:descricao)
+    @products = Base::Product.all.order(:descricao)
+    @products_select = Base::Product.all.order(:descricao).map do |produto|
+      [
+        produto.descricao,
+        produto.id,
+        {
+          "data-valor-unitario" => produto.preco,
+        }
+      ]
+    end
   end
 
-  def set_person
-    @person = Base::Person.find( params[:id] )
+  def set_order
+    @order = Commercial::Order.find( params[:id] )
   end
 
   def order_params
     params.require(:commercial_order).permit(
-      :data_do_pedido, :people_id, :valor_total
+      :data_do_pedido, :people_id, :valor_total,
+      order_items_attributes: [:id, :product_id, :quantidade, :order_id, :_destroy],
     )
   end
 end

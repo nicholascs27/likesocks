@@ -1,0 +1,29 @@
+tr.nested-fields
+  td
+    - if f.object.persisted?
+      = f.object.product.descricao
+    - else
+      = f.select :product_id,
+        options_from_collection_for_select( @products,
+          :id, :descricao, f.object.try(:product_id) \
+        ),
+        { include_blank: 'Selecione' }, 
+        class: 'form-control s2 produto', 
+        id: 'product_id'
+
+  td
+    - if f.object.persisted?
+      span.moeda.valor-unitario
+        =< f.object.product.preco.to_f.valor_financeiro
+    - else
+      span.moeda.valor-unitario
+
+  td
+    = f.text_field :quantidade, placeholder: '0', class: 'form-control quantidade', data: {autonumeric: true, 'a-sep'=> '.', 'a-dec'=>',', 'a-sign'=> ''}
+		= error_for f.object, :quantidade
+
+  td
+    span.moeda.total
+  
+  td
+		= link_to_remove_association " Remover", f, class: "btn btn-sm btn-danger icone-anular"

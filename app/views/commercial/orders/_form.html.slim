@@ -1,3 +1,5 @@
+= javascript_include_tag "commercial/orders/form"
+
 - action = (@order.new_record? ? :create : :update)
 
 = form_for( @order, url: url_for(controller: 'commercial/orders', action: action), role: "form" ) do |f|
@@ -28,12 +30,40 @@
 						data: { value: @order.try(:people_id) },
 						id: "people_id"
 					= error_for @order, :people_id
+
 		.form-group
 			.row
 				.col-sm-3
 					= f.label :valor_total, "Valor do Pedido*", class: "control-label"
 					= f.text_field :valor_total, placeholder: 'R$ 0,00', class: 'form-control', data: {autonumeric: true, 'a-sep'=> '.', 'a-dec'=>',', 'a-sign'=> 'R$ '}
 					= error_for @order, :valor_total
+
+		.form-group
+			.row
+				.col-sm-12
+					fildset
+						legend
+							strong
+								' Adicionar Itens'
+						.table-responsive
+							table.table.table-bordered.table-hover
+								thead
+									tr
+										th width="45%" Produto
+										th width="15%" Vlr. Unitário
+										th width="15%" Quantidade
+										th width="15%" Valor Total
+										th width="10%" Opções
+									tbody#order_items
+										= f.hidden_field :order_items_hidden,
+											class: "itens-input-hidden",
+											data: { values: @products_select }
+										= f.fields_for :order_items do |order_item|
+											= render 'order_item_fields', f: order_item
+									trfoot
+										tr
+											td.links colspan=6 align="right"
+												= link_to_add_association '<span class="glyphicon glyphicon-plus-sign"></span> Adicionar'.html_safe, f, :order_items, :"data-association-insertion-node" => "tbody#order_items", :"data-association-insertion-method" => "append", class: 'btn btn-primary btn-sm', id: 'btn-add-order-item'
 
 	.form-actions
 		.row
