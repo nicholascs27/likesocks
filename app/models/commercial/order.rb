@@ -29,13 +29,17 @@ class Commercial::Order < ActiveRecord::Base
     event :finalizar do
       transitions from: :aberto, to: :fechado do
         guard do
-          order_items.any? && person.present? && data_do_pedido.present?
+          order_items.any? && person.present? && data_do_pedido.present? && !self.cancelado?
         end
       end
     end
 
     event :cancelar do
-      transitions to: :cancelado
+      transitions to: :cancelado do
+        guard do
+          !self.cancelado?
+        end
+      end
     end
   end
 

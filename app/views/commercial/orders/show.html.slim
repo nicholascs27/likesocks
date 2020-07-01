@@ -9,6 +9,9 @@
 							legend
 								strong
 									'  Detalhe Pedido
+									.pull-right style="margin-top: -5px;"
+										span.label.label-danger =< @order.status.try(:upcase) if @order.cancelado?
+										span.label.label-success =< @contrato.status.try(:upcase) if @order.fechado?
 
 						hr
 						.row
@@ -57,11 +60,11 @@
 											span.text-danger  Excluir
 
 										- if @order.may_cancelar?
-											= link_to cancelar_commercial_order_path(@order), class: "btn btn-default btn-sm" do
+											= link_to cancelar_commercial_order_path(@order), method: :patch, class: "btn btn-default btn-sm" do
 												i.glyphicon.glyphicon-remove-sign
 												span  Cancelar
 
 										- if @order.may_finalizar?
-											= link_to finalizar_commercial_order_path(@order), class: "btn btn-default btn-sm" do
+											= link_to finalizar_commercial_order_path(@order), method: :patch, class: "btn btn-default btn-sm" do
 												i.fa.fa-forward
 												span  Fechar Pedido
