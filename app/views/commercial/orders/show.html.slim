@@ -1,0 +1,67 @@
+.div#page-wrapper
+  .container-fluid
+    .row
+      .col-lg-12
+				.widget
+					.widget-body
+						br
+						fieldset
+							legend
+								strong
+									'  Detalhe Pedido
+
+						hr
+						.row
+							.col-md-6
+								p
+									span.fw-semi-bold Nome:
+									=< @order.person.nome
+								p
+									span.fw-semi-bold Logradouro:
+									=< @order.person.logradouro
+								p
+									span.fw-semi-bold Nº:
+									=< @order.person.numero
+								p
+									span.fw-semi-bold Bairro:
+									=< @order.person.bairro
+								p
+									span.fw-semi-bold Cidade:
+									=< @order.person.cidade
+								p
+									span.fw-semi-bold Telefone:
+									=< @order.person.telefone.try(:as_telefone)
+							.col-sm-6
+								p
+									span.fw-semi-bold Valor do Pedido:
+									=< @order.try(:valor_total).try(:valor_financeiro)
+								p
+									span.fw-semi-bold Qtd de Itens:
+									=< @order.order_items.size
+						br
+
+						.row
+							.col-sm-12
+								.btn-toolbar
+									.btn-group
+										= link_to commercial_orders_path, class: "btn btn-default btn-sm" do
+											i.fa.fa-arrow-left
+											'  Voltar
+
+										= link_to edit_commercial_order_path(@order), class: "btn btn-default btn-sm" do
+											i.glyphicon.glyphicon-pencil
+											'  Editar
+
+										= link_to @order, method: :delete, data: { confirm: 'Tem certeza?' }, class: "btn btn-default btn-sm" do
+											i.glyphicon.glyphicon-trash.text-danger
+											span.text-danger  Excluir
+
+										- if @order.may_cancelar?
+											= link_to cancelar_commercial_order_path(@order), class: "btn btn-default btn-sm" do
+												i.glyphicon.glyphicon-remove-sign
+												span  Cancelar
+
+										- if @order.may_finalizar?
+											= link_to finalizar_commercial_order_path(@order), class: "btn btn-default btn-sm" do
+												i.fa.fa-forward
+												span  Fechar Pedido

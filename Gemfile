@@ -23,6 +23,7 @@ gem "paperclip", "~> 6.0.0"
 gem "messengerjs-rails", "~> 1.4.1"
 gem 'maskedinput-rails'
 gem "cocoon", '1.2.14'
+gem 'aasm'
 # jQuery UI for the Rails asset pipeline
 # gem 'jquery-ui-rails'
 # Use postgresql as the database for Active Record

@@ -1,5 +1,7 @@
 class Commercial::Order < ActiveRecord::Base
 
+  include AASM
+
   attr_accessor :order_items_hidden
 
   belongs_to :person, class_name: "Base::Person", foreign_key: "people_id"
@@ -12,6 +14,30 @@ class Commercial::Order < ActiveRecord::Base
 
   before_create :gerar_codigo
   after_save :gravar_valor_total_do_pedido
+
+  enum status: {
+    aberto: 1,
+    fechado: 2,
+    cancelado: 3
+  }
+
+  aasm column: :status, enum: true, whiny_transitions: false do
+    state :aberto, :initial => true
+    state :cancelado
+    state :fechado
+    
+    event :finalizar do
+      transitions from: :aberto, to: :fechado do
+        guard do
+          order_items.any? && person.present? && data_do_pedido.present?
+        end
+      end
+    end
+
+    event :cancelar do
+      transitions to: :cancelado
+    end
+  end
 
   # Ações
 	def gerar_codigo

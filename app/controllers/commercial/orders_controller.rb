@@ -25,6 +25,10 @@ class Commercial::OrdersController < SiteController
     end
   end
 
+  def show
+  end
+  
+
   def edit
   end
 
@@ -43,6 +47,23 @@ class Commercial::OrdersController < SiteController
       redirect_to commercial_orders_path, alert: "Não foi possível excluir"
     end
   end
+
+  def cancelar
+    if @order.cancelar!
+			redirect_to @order, notice: 'Pedido foi cancelado com sucesso.'
+		else
+			redirect_to @order, notice: 'Não foi possível cancelar o pedido'
+		end
+  end
+
+  def finalizar
+    if @order.finalizar!
+      redirect_to @order, success: 'Pedido finalizado com sucesso.'
+    else
+      redirect_to @order, alert: 'Não foi possivel finalizar o pedido.'
+    end
+  end
+  
 
   private
 

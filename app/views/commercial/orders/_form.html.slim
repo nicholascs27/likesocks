@@ -33,13 +33,6 @@
 
 		.form-group
 			.row
-				.col-sm-3
-					= f.label :valor_total, "Valor do Pedido*", class: "control-label"
-					= f.text_field :valor_total, placeholder: 'R$ 0,00', class: 'form-control', data: {autonumeric: true, 'a-sep'=> '.', 'a-dec'=>',', 'a-sign'=> 'R$ '}
-					= error_for @order, :valor_total
-
-		.form-group
-			.row
 				.col-sm-12
 					fildset
 						legend
@@ -69,7 +62,8 @@
 		.row
 			.col-sm-12
         = f.submit "Salvar", class: "btn btn-primary"
-        = link_to "Voltar", base_products_path, class: "btn btn-default"
+        = link_to "Voltar", commercial_orders_path, class: "btn btn-default"
+				
 
 javascript:
 	$(function() {
