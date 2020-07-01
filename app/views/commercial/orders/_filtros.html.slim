@@ -16,6 +16,15 @@ section.widget.widget-search
 							label.control-label Código
 							= f.text_field :codigo_eq, class: "form-control"
 
+						.col-sm-2.filter_column
+							= f.label :status_label, 'Status', class: 'control-label'
+							= f.select :status_eq,
+								options_for_select( \
+									Commercial::Order.statuses.collect { |t| [ t[0], t[1] ] }, \
+									selected: @q.status_eq \
+								),
+								{ include_blank: 'Selecione' }, class: 'form-control s2'
+
 
 			.form-actions.form-search-actions
 				= f.submit "Filtrar", class: "btn btn-default btn-sm"

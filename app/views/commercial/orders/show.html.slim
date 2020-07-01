@@ -11,8 +11,8 @@
 									'  Detalhe Pedido
 									.pull-right style="margin-top: -5px;"
 										span.label.label-danger =< @order.status.try(:upcase) if @order.cancelado?
-										span.label.label-success =< @order.status.try(:upcase) if @order.fechado?
-
+										span class="label label-#{@order.fechado? ? "success" : "primary"}" =< @order.try(:status).try(:upcase)
+										
 						hr
 						.row
 							.col-md-6

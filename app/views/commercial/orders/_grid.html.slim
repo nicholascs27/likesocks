@@ -21,6 +21,7 @@ hr
             th Data
             th Cliente
             th Valor
+            th Status
             th width="130px"
 
         tbody
@@ -34,6 +35,11 @@ hr
                 = order.person.nome
               td
                 = order.try(:valor_total).try(:valor_financeiro)
+              td
+                - if order.cancelado?
+                  span class="label label-danger" =< order.status.try(:upcase)
+                - else
+                  span class="label label-#{order.fechado? ? "success" : "primary"}" =< order.status.try(:upcase)
               td
                 = link_to order, class: "btn btn-info btn-circle" do
                   i class="fa fa-search"
