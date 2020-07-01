@@ -70,7 +70,7 @@ class Commercial::OrdersController < SiteController
   def disponibiliza_dependencias
     @clientes = Base::Person.all.order(:nome)
     @products = Base::Product.all.order(:descricao)
-    @products = Base::Product.all.order(:descricao)
+    @products = Base::Product.all.where("quantidade_estoque > 0").order(:descricao)
     @products_select = Base::Product.all.order(:descricao).map do |produto|
       [
         produto.descricao,

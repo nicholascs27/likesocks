@@ -31,6 +31,9 @@ class Commercial::Order < ActiveRecord::Base
         guard do
           order_items.any? && person.present? && data_do_pedido.present? && !self.cancelado?
         end
+        after do
+					diminui_estoque_do_produto
+				end
       end
     end
 
@@ -38,6 +41,27 @@ class Commercial::Order < ActiveRecord::Base
       transitions to: :cancelado do
         guard do
           !self.cancelado?
+        end
+
+        after do
+          retorna_estoque_do_produto
+        end
+      end
+    end
+
+    event :voltar_para_aberto do
+      transitions from: :cancelado, to: :aberto do
+        guard do
+          self.cancelado?
+        end
+      end
+      transitions from: :fechado, to: :aberto do
+        guard do
+          self.fechado?
+        end
+
+        after do
+          retorna_estoque_do_produto
         end
       end
     end
@@ -51,6 +75,20 @@ class Commercial::Order < ActiveRecord::Base
   def gravar_valor_total_do_pedido
     total = self.order_items.sum(&:valor_total_do_item)
     self.update_column(:valor_total, total)
+  end
+
+  def diminui_estoque_do_produto
+    order_items.each do |order_item|
+      order_item.product.quantidade_estoque -= order_item.quantidade
+      order_item.product.save(validate: false)
+    end
+  end
+
+  def retorna_estoque_do_produto
+    order_items.each do |order_item|
+      order_item.product.quantidade_estoque += order_item.quantidade
+      order_item.product.save(validate: false)
+    end
   end
 
 end

@@ -10,9 +10,11 @@
 								strong
 									'  Detalhe Pedido
 									.pull-right style="margin-top: -5px;"
-										span.label.label-danger =< @order.status.try(:upcase) if @order.cancelado?
-										span class="label label-#{@order.fechado? ? "success" : "primary"}" =< @order.try(:status).try(:upcase)
-										
+										- if @order.cancelado?
+											span class="label label-danger" =< @order.status.try(:upcase)
+										- else
+											span class="label label-#{@order.fechado? ? "success" : "primary"}" =< @order.status.try(:upcase)
+
 						hr
 						.row
 							.col-md-6
@@ -51,13 +53,14 @@
 											i.fa.fa-arrow-left
 											'  Voltar
 
-										= link_to edit_commercial_order_path(@order), class: "btn btn-default btn-sm" do
-											i.glyphicon.glyphicon-pencil
-											'  Editar
+										- if @order.aberto?
+											= link_to edit_commercial_order_path(@order), class: "btn btn-default btn-sm" do
+												i.glyphicon.glyphicon-pencil
+												'  Editar
 
-										= link_to @order, method: :delete, data: { confirm: 'Tem certeza?' }, class: "btn btn-default btn-sm" do
-											i.glyphicon.glyphicon-trash.text-danger
-											span.text-danger  Excluir
+											= link_to @order, method: :delete, data: { confirm: 'Tem certeza?' }, class: "btn btn-default btn-sm" do
+												i.glyphicon.glyphicon-trash.text-danger
+												span.text-danger  Excluir
 
 										- if @order.may_cancelar?
 											= link_to cancelar_commercial_order_path(@order), method: :patch, class: "btn btn-default btn-sm" do
