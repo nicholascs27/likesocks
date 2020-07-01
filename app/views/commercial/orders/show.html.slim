@@ -11,7 +11,7 @@
 									'  Detalhe Pedido
 									.pull-right style="margin-top: -5px;"
 										span.label.label-danger =< @order.status.try(:upcase) if @order.cancelado?
-										span.label.label-success =< @contrato.status.try(:upcase) if @order.fechado?
+										span.label.label-success =< @order.status.try(:upcase) if @order.fechado?
 
 						hr
 						.row
