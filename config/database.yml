@@ -84,6 +84,4 @@ test:
 #
 production:
   <<: *default
-  database: uselikesocks_production
-  username: uselikesocks
-  password: <%= ENV['USELIKESOCKS_DATABASE_PASSWORD'] %>
+  database: <%= ENV['DATABASE_URL'] %>
