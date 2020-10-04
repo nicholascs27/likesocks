@@ -18,6 +18,7 @@
 						= f.text_field :data_do_pedido, class: "form-control datepicker", id: "data_do_pedido"
 						span.input-group-addon
 							span.glyphicon.glyphicon-calendar
+				
 				.col-sm-4
 					= f.label :people_id, "Cliente*", class: "control-label"
 					= f.select :people_id,
@@ -31,13 +32,31 @@
 						id: "people_id"
 					= error_for @order, :people_id
 
+				.col-sm-2
+					= f.label :taxa_entrega, "Taxa Entrega", class: "control-label"
+					= f.text_field :taxa_entrega, placeholder: 'R$ 0,00', class: 'form-control', data: {autonumeric: true, 'a-sep'=> '.', 'a-dec'=>',', 'a-sign'=> 'R$ '}
+					= error_for @order, :taxa_entrega
+
+				.col-sm-2
+					= f.label :desconto, "Desconto (%)", class: "control-label"
+					= f.number_field :desconto, placeholder: 'Ex: 0%', class: 'form-control'
+					= error_for @order, :desconto
+		
+		.form-group
+			.row
+				.col-sm-4
+					.checkbox.checkbox-circle
+						= f.check_box :pagamento_com_cartao
+						= f.label :pagamento_com_cartao, "Pagamento Com Cartão?"
+					= error_for @order, :pagamento_com_cartao
+
 		.form-group
 			.row
 				.col-sm-12
 					fildset
 						legend
 							strong
-								' Adicionar Itens'
+								' Adicionar Itens
 						.table-responsive
 							table.table.table-bordered.table-hover
 								thead
@@ -68,7 +87,7 @@
 javascript:
 	$(function() {
 		$(document).trigger('refresh_autonumeric');
-		$('#commercial_order_preco').autoNumeric('init', {
+		$('#commercial_order_taxa_entrega').autoNumeric('init', {
 			'aSep': '.',
 			'aDec': ',',
 			'aPad': true,

@@ -10,13 +10,17 @@ section.widget.widget-search
 					.row
 						.col-sm-3
 							label.control-label Data
-							= f.text_field :data_do_pedido_eq, class: "form-control"
+							.input-group
+								= f.text_field :data_do_pedido_eq, class: "form-control datepicker", id: "data_do_pedido"
+								span.input-group-addon
+									span.glyphicon.glyphicon-calendar
+							/ = f.text_field :data_do_pedido_eq, class: "form-control"
 
 						.col-sm-3
 							label.control-label Código
 							= f.text_field :codigo_eq, class: "form-control"
 
-						.col-sm-2.filter_column
+						.col-sm-3.filter_column
 							= f.label :status_label, 'Status', class: 'control-label'
 							= f.select :status_eq,
 								options_for_select( \
@@ -28,3 +32,16 @@ section.widget.widget-search
 
 			.form-actions.form-search-actions
 				= f.submit "Filtrar", class: "btn btn-default btn-sm"
+
+
+javascript:
+	$(function() {
+		$(document).trigger('refresh_autonumeric');
+
+		$('.datepicker').datepicker({
+			format: "dd/mm/yyyy",
+			language: 'pt-BR'
+		});
+
+		$("#data_do_pedido").mask("00/00/0000");
+	});

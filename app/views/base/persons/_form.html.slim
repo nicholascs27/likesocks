@@ -21,13 +21,13 @@
 					= f.label :instagram, "Perfil Instagram", class: "control-label", placeholder: "@nomeDoPerfil"
 					= f.text_field :instagram, class: "form-control"
 
-				.col-sm-3
-					= f.label :cpf, "CPF", class: "control-label"
-					= f.text_field :cpf, placeholder: '000.000.000-00', class: "form-control" , maxlength: 14
+				/ .col-sm-3
+				/ 	= f.label :cpf, "CPF", class: "control-label"
+				/ 	= f.text_field :cpf, placeholder: '000.000.000-00', class: "form-control" , maxlength: 14
 
-				.col-sm-3
-					= f.label :cnpj, "CNPJ", class: "control-label"
-					= f.text_field :cnpj, class: "form-control"
+				/ .col-sm-3
+				/ 	= f.label :cnpj, "CNPJ", class: "control-label"
+				/ 	= f.text_field :cnpj, class: "form-control"
 
     .form-group
 			.row
@@ -48,11 +48,11 @@
 
     .form-group
 			.row
-				.col-sm-2
+				.col-sm-4
 					= f.label :cep, "CEP", class: "control-label"
 					= f.text_field :cep, class: "form-control"
 
-				.col-sm-3
+				.col-sm-4
 					= f.label :estado, "Estado", class: "control-label"
 					= f.select :estado,
 						options_for_select(\
@@ -71,21 +71,26 @@
 
     .form-group
 			.row
-				.col-sm-2
+				.col-sm-8
+					= f.label :complemento, "Complemento", class: "control-label"
+					= f.text_field :complemento, class: "form-control", placeholder: "Ponto de Referência"
+					= error_for @person, :complemento
+
+				.col-sm-4
 					= f.label :telefone, "Telefone", class: "control-label"
 					= f.text_field :telefone, class: "form-control"
 					= error_for @person, :telefone
 
-				.col-sm-4
-					= f.label :email, "E-mail", class: "control-label"
-					= f.text_field :email, class: "form-control"
+				/ .col-sm-4
+				/ 	= f.label :email, "E-mail", class: "control-label"
+				/ 	= f.text_field :email, class: "form-control"
 
-				.col-sm-3
-					= f.label :data_de_nascimento, "Data de Nascimento", class: "control-label", for: "normal-field"
-					.input-group
-						= f.text_field :data_de_nascimento, class: "form-control datepicker", id: "data_de_nascimento"
-						span.input-group-addon
-							span.glyphicon.glyphicon-calendar
+				/ .col-sm-3
+				/ 	= f.label :data_de_nascimento, "Data de Nascimento", class: "control-label", for: "normal-field"
+				/ 	.input-group
+				/ 		= f.text_field :data_de_nascimento, class: "form-control datepicker", id: "data_de_nascimento"
+				/ 		span.input-group-addon
+				/ 			span.glyphicon.glyphicon-calendar
 
 	.form-actions
 		.row

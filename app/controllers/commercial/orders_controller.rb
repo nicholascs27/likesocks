@@ -5,7 +5,7 @@ class Commercial::OrdersController < SiteController
 
   def index
     @q = Commercial::Order.ransack(params[:q])
-    @orders = @q.result(distinct: false)
+    @orders = @q.result(distinct: false).paginate(page: params[:page], per_page: 2)
   end
 
   def show
@@ -88,7 +88,7 @@ class Commercial::OrdersController < SiteController
 
   def order_params
     params.require(:commercial_order).permit(
-      :data_do_pedido, :people_id, :valor_total,
+      :data_do_pedido, :people_id, :taxa_entrega, :desconto, :pagamento_com_cartao,
       order_items_attributes: [:id, :product_id, :quantidade, :order_id, :_destroy],
     )
   end

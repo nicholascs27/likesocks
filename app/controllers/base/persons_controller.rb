@@ -4,7 +4,7 @@ class Base::PersonsController < SiteController
 
   def index
     @q = Base::Person.ransack(params[:q])
-    @persons = @q.result(distinct: false)
+    @persons = @q.result(distinct: false).paginate(page: params[:page], per_page: 2)
   end
 
   def show

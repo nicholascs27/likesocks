@@ -18,10 +18,10 @@ hr
         thead
           tr
             th #
-            th Imagem
+            / th Imagem
             th Descrição
-            th Modelo
-            th Qtd. Estoque
+            / th Modelo
+            / th Qtd. Estoque
             th Preço
             th width="130px"
 
@@ -30,14 +30,14 @@ hr
             tr
               td
                 = product.id
-              td
-                = image_tag(product.imagem.url(:thumb), class: "img-thumbnail")
+              / td
+              /   = image_tag(product.imagem.url(:thumb), class: "img-thumbnail")
               td
                 = product.descricao
-              td
-                = product.product_model.descricao
-              td
-                = product.quantidade_estoque
+              / td
+              /   = product.product_model.descricao
+              / td
+              /   = product.quantidade_estoque
               td
                 = product.preco.valor_financeiro
               td
@@ -45,5 +45,6 @@ hr
                   i class="fa fa-search"
                 = link_to edit_base_product_path(product), class: "btn btn-primary btn-circle" do
                   i class="fa fa-edit"
-                = link_to product, method: :delete, data: { confirm: 'Tem certeza?' }, class: "btn btn-danger btn-circle" do
-                  i class="fa fa-times"
+                - if !product.order_itens.any?
+                  = link_to product, method: :delete, data: { confirm: 'Tem certeza?' }, class: "btn btn-danger btn-circle" do
+                    i class="fa fa-times"

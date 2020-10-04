@@ -21,6 +21,8 @@ hr
             th Data
             th Cliente
             th Valor
+            th Taxa
+            th Cartão?
             th Status
             th width="130px"
 
@@ -36,6 +38,10 @@ hr
               td
                 = order.try(:valor_total).try(:valor_financeiro)
               td
+                = order.try(:taxa_entrega).try(:valor_financeiro)
+              td
+                span class="label label-#{order.pagamento_com_cartao? ? "success" : "danger"}" = order.pagamento_com_cartao? ? "SIM" : "NÃO"
+              td
                 - if order.cancelado?
                   span class="label label-danger" =< order.status.try(:upcase)
                 - else
@@ -49,3 +55,6 @@ hr
 
                   = link_to order, method: :delete, data: { confirm: 'Tem certeza?' }, class: "btn btn-danger btn-circle" do
                     i class="fa fa-times"
+
+    - if controller.class.name.demodulize == "OrdersController"
+      = will_paginate @orders, previous_label: "<", next_label: ">"

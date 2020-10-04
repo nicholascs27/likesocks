@@ -74,6 +74,9 @@ class Commercial::Order < ActiveRecord::Base
   
   def gravar_valor_total_do_pedido
     total = self.order_items.sum(&:valor_total_do_item)
+    if self.desconto.present?
+      total = total - (total * (self.desconto.to_f / 100).to_f)
+    end
     self.update_column(:valor_total, total)
   end
 

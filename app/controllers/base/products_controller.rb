@@ -53,9 +53,7 @@ class Base::ProductsController < SiteController
   end
 
   def product_params
-    params.require(:base_product).permit(:descricao, :product_model_id, :preco,
-      :quantidade_estoque, :quantidade_estoque_minimo, :imagem
-    )
+    params.require(:base_product).permit(:descricao, :preco)
   end
 
 end
